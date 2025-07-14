@@ -2,80 +2,91 @@ package bootcamp.poo;
 
 public class ContaBancaria{
     public String nome;
-    private float saldo;
-    public float chequeEspecial;
+    private double saldo;
+    public double limiteChequeEspecial;
+    private double valorUsadoChequeEspecial = 0;
 
-    public ContaBancaria(String nome, float saldo) {
+    public ContaBancaria(String nome, double saldoInicial) {
         this.nome = nome;
-        this.saldo = saldo;
-        this.chequeEspecial = chequeEspecialValor();
-    }
 
-    //Consultar saldo
-    public float getSaldo() {
-        return saldo;
-    }
-
-    public void setSaldo(float novoSaldo) {
-        this.saldo += novoSaldo;
-    }
-
-    //Apesar de ter um setter que faz uma função parecida é fundamental ter o método depositar para não acessar o saldo diretamente
-    public void depositar(float valor) {
-        if(valor <= 0) {
-            System.out.println("Valor inválido para depósito.");
+        if(saldoInicial > 0) {
+            this.saldo += saldoInicial;
         } else {
-            float novoSaldo = this.saldo += valor;
-            System.out.println("Novo saldo após o depósito: R$" + novoSaldo);
+            this.saldo = 0;
+            System.out.println("Depósito inicial inválido. O saldo começará em R$0,00.");
+        }
+
+        this.limiteChequeEspecial = calcularLimiteChequeEspecial(saldoInicial);
+    }
+    
+    // --- MÉTODOS DE CONSULTA ---
+    public void consultarSaldo() {
+        System.out.printf("Saldo atual de %s: R$%.2f\n", this.nome, this.saldo);
+    }
+
+    public void consultarChequeEspecial() {
+        System.out.printf("Limite do Cheque Especial: R$%.2f\n", this.limiteChequeEspecial);
+        if(isUsandoChequeEspecial()) {
+            System.out.printf("Valor usado no Cheque Especial: R$%.2f", Math.abs(saldo));
         }
     }
 
+    public boolean isUsandoChequeEspecial() {
+        return this.saldo < 0;
+    }
+
+    // --- MÉTODOS DE OPERAÇÃO ---
+
+    public void depositar(double valor) {
+        if(valor <= 0) {
+            System.out.println("Valor inválido para depósito.");
+        } 
+
+        if(this.valorUsadoChequeEspecial > 0) {
+            double taxa = this.valorUsadoChequeEspecial * 0.20;
+            System.out.printf("TAXA: Cobrada taxa de 20%% sobre R$%.2f (uso do cheque especial), no valor de R$%.2f\n", this.valorUsadoChequeEspecial, taxa);
+            this.saldo -= taxa;
+            this.valorUsadoChequeEspecial = 0;
+        }
+
+        this.saldo += valor;
+        System.out.printf("Depósito de R$%.2f realizado com sucesso.\n", valor);
+        consultarSaldo();
+    }
+
     //Caso o limite de cheque especial seja usado, assim que possível a conta deve cobrar uma taxa de 20% do valor usado do cheque especial.
-    public void sacar(float valor) {
+    public void sacar(double valor) {
         if(valor <= 0) {
             System.out.println("Valor inválido pra saque!");
             return;
         }
 
-        float saldoDisponivel = this.saldo + this.chequeEspecial;
+        double saldoDisponivel = this.saldo + this.limiteChequeEspecial;
 
         if(valor <= saldoDisponivel) {
             this.saldo -= valor;
+            System.out.printf("Saque de R$%.2f realizado com sucesso.\n", valor);
 
-            //Verifica se emtrou no cheque especial
-            if(isNoChequeEspecial()) {
-                float valorUsadoCheque = Math.abs(saldo);
-                float taxa = valorUsadoCheque * 0.2f;
-    
-                saldo -= taxa;
-    
-                System.out.printf("Você usou o cheque especial. Foi cobrada uma taxa de R$%.2f\n", taxa);
-            } else {
-                System.out.println("Saldo realizado com sucesso.");
-            }
+            //Verifica se entrou no cheque especial
+            if(isUsandoChequeEspecial()) {
+                this.valorUsadoChequeEspecial = Math.abs(this.saldo);
+                System.out.println("Atenção: Você entrou no cheque especial.");
+            } 
+            consultarSaldo();
 
         } else {
             System.out.println("Saque não autorizado. Valor ultrapassa o saldo + cheque especial.");
         }
     }
 
-    //Se o valor depositado na criação da conta for de R$500,00 ou menos o cheque especial deve ser de R$50,00
-    //Para valores acima de R$500,00 o cheque especial deve ser de 50% do valor depositado
-    private float chequeEspecialValor() {
-        if(this.saldo > 0 && this.saldo <= 500) {
-            return chequeEspecial = 50;
+    // --- MÉTODOS INTERNOS (PRIVADOS) ---
+    private double calcularLimiteChequeEspecial(double saldoInicial) {
+        if(saldoInicial > 0 && saldoInicial <= 500) {
+            return 50;
+        } else if(saldoInicial > 500) {
+            return saldoInicial * 0.5;
         } else {
-            return chequeEspecial = this.saldo * 0.5f;
+            return 0;
         }
-    }
-
-    public void consultarChequeEspecial() {
-        System.out.println("Cheque Especial no valor de: R$" + chequeEspecial);
-    }
-
-    public boolean isNoChequeEspecial() {
-        return saldo < 0;
-    }
-
-        
+    }        
 }
