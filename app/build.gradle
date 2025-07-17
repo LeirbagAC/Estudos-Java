@@ -34,7 +34,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = 'bootcamp.App'
+    mainClass = 'bootcamp.Exercicio2'
 }
 
 tasks.named('test') {
