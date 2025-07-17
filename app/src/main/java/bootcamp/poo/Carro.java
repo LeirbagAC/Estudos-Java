@@ -54,27 +54,25 @@ public class Carro {
 
         boolean podeAcelerar = false;
         switch(this.marcha) {
-            case 0:
-                System.out.println("ERRO: Não é possível acelerar em Ponto Morto.");
-                break;
-            case 1: 
+            case 0 -> System.out.println("ERRO: Não é possível acelerar em Ponto Morto.");
+            case 1 -> { 
                 if(this.velocidade < 20) podeAcelerar = true;
-                break;
-            case 2: 
+            }
+            case 2 -> { 
                 if(this.velocidade < 40) podeAcelerar = true;
-                break;
-            case 3: 
+            }
+            case 3 -> { 
                 if(this.velocidade < 60) podeAcelerar = true;
-                break;
-            case 4: 
+            }
+            case 4 -> { 
                 if(this.velocidade < 80) podeAcelerar = true;
-                break;
-            case 5: 
+            }
+            case 5 -> { 
                 if(this.velocidade < 100) podeAcelerar = true;
-                break;
-            case 6: 
+            }
+            case 6 -> { 
                 if(this.velocidade < 120) podeAcelerar = true;
-                break;
+            }
         }
 
         if(podeAcelerar) {
