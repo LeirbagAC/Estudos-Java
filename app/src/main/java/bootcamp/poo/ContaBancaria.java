@@ -36,7 +36,6 @@ public class ContaBancaria{
     }
 
     // --- MÉTODOS DE OPERAÇÃO ---
-
     public void depositar(double valor) {
         if(valor <= 0) {
             System.out.println("Valor inválido para depósito.");

@@ -43,8 +43,8 @@ public class EstudoArrays {
 
         String[] feriados = {"Natal", "Pascoa", "Ano novo", "Carnaval"};
 
-        for(int i = 0; i < feriados.length; i++) {
-            System.out.println(feriados[i]);
+        for(String feriado : feriados) {
+            System.out.println(feriado);
         }
     }
 }
