@@ -46,5 +46,9 @@ public class EstudoArrays {
         for(String feriado : feriados) {
             System.out.println(feriado);
         }
+
+        // for (int i = 0; i < feriados.length; i++) {
+        //     System.out.println(feriados[i]);
+        // }
     }
 }
