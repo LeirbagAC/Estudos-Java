@@ -63,6 +63,12 @@ public class EstudoMap {
 
         }
 
+        /*
+        Sobre a forma como declarar um Map ou até mesmo outras coleções:
+        Use Map<K,V> variavel = new HashMap<>(); na maior parte dos casos (flexibilidade, boa prática).
+        Use HashMap<K,V> só se precisar de algo muito específico dessa classe.
+        */
+
 
     }
 }
