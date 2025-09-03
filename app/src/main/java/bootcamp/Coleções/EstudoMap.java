@@ -1,7 +1,9 @@
 package bootcamp.Coleções;
-import java.util.HashMap;
 
-public class Map {
+import java.util.HashMap;
+import java.util.Map;
+
+public class EstudoMap {
     public static void main(String[] args) {
         
         HashMap<String, Double> frutas = new HashMap<>();
@@ -40,5 +42,27 @@ public class Map {
         for(Double fruta1 : frutas.values()) {
             System.out.println("The price are: " + fruta1);
         }
+
+        System.out.println("\n--- Percorrendo os Pares (Chave e Valor) ---");
+        for(Map.Entry<String, Double> par : frutas.entrySet()) {
+            String fruta3 = par.getKey();
+            Double preco3 = par.getValue();
+            System.out.println("The price of the " + fruta3 + " is: " + preco3);
+        }
+
+        HashMap<String, String> capitais = new HashMap<>();
+        capitais.put("Brazsil", "Brasília");
+        capitais.put("Argentina", "Buenos Aires");
+        capitais.put("Colômbia", "Bogotá");
+        capitais.put("Peru", "Lima");
+
+        for(Map.Entry<String, String> par : capitais.entrySet()) {
+            String pais = par.getKey();
+            String capital = par.getValue();
+            System.out.println("A capital do " + pais + " é: " + capital);
+
+        }
+
+
     }
 }
