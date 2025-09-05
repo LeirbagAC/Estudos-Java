@@ -1,5 +1,7 @@
 package bootcamp.poo;
 
+import bootcamp.ExceçõesPersonalizadas.SaldoInsuficienteException;
+
 public class ContaBancaria{
     public String nome;
     private double saldo;
@@ -54,7 +56,7 @@ public class ContaBancaria{
     }
 
     //Caso o limite de cheque especial seja usado, assim que possível a conta deve cobrar uma taxa de 20% do valor usado do cheque especial.
-    public void sacar(double valor) {
+    public void sacar(double valor) throws SaldoInsuficienteException{
         if(valor <= 0) {
             System.out.println("Valor inválido pra saque!");
             return;

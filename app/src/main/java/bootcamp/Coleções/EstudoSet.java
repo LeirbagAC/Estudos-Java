@@ -23,7 +23,7 @@ public class EstudoSet {
         System.out.println("Conseguiu adicionar 'Alice' de novo? " + conseguiuAdicionar);
 
         boolean convidadoPresente = convidados.contains("Gabriel");
-        System.out.println(convidadoPresente);    
+        System.out.println(convidadoPresente);
 
         convidados.remove("Ana");
 
@@ -48,6 +48,6 @@ public class EstudoSet {
 
         System.out.println("Lista de notas original (com duplicatas): " + notas);
         Set<Integer> notasSemDuplicatas = new HashSet<>(notas);
-        System.out.println("Lista de notas sem duplicatas: " + notasSemDuplicatas);             
+        System.out.println("Lista de notas sem duplicatas: " + notasSemDuplicatas);
     }
 }
